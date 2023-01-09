@@ -1,13 +1,13 @@
 import { FC, useCallback } from 'react';
 import { Unstable_Grid2 as Grid, Typography } from '@mui/material';
-import { CellGrid } from 'modules/Home/components';
+import { CellGrid, ResultsSubmit } from 'modules/Home/components';
 import { HomeContainerProps } from 'modules/Home/HomeContainer.types';
 import { Container, NumbersContainer } from 'modules/Home/HomeContainer.styled';
 import { useCells } from 'common/hooks/useCells';
 import { ICell } from './models/cell';
 
 const HomeContainer: FC<HomeContainerProps> = () => {
-  const { cells, setCells } = useCells();
+  const { cells, selectedNCells, setCells } = useCells();
 
   const handleSelectNumber = useCallback(
     (cellID: string | null) => {
@@ -27,6 +27,8 @@ const HomeContainer: FC<HomeContainerProps> = () => {
     [cells, setCells],
   );
 
+  console.log('selectedNCells', selectedNCells);
+
   return (
     <Container>
       <Grid
@@ -42,7 +44,21 @@ const HomeContainer: FC<HomeContainerProps> = () => {
           </NumbersContainer>
         </Grid>
         <Grid xs={4}>
-          <NumbersContainer />
+          <Grid container flexDirection="column">
+            <Grid>
+              <NumbersContainer>
+                <Typography color="#1f1f1f">Selected numbers:</Typography>
+                <CellGrid
+                  cells={selectedNCells}
+                  onSelectNumber={handleSelectNumber}
+                />
+              </NumbersContainer>
+            </Grid>
+            <Grid>
+              <NumbersContainer>section</NumbersContainer>
+            </Grid>
+            <ResultsSubmit />
+          </Grid>
         </Grid>
       </Grid>
     </Container>

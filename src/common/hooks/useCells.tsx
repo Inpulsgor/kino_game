@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { generateCells } from 'modules/Home/helpers/functions';
 import { ICell } from 'modules/Home/models/cell';
 
@@ -13,8 +13,13 @@ export const useCells = () => {
     }
   }, []);
 
+  const selectedNCells = useMemo(() => {
+    return cells.filter(({ selected }: ICell) => selected);
+  }, [cells]);
+
   return {
     cells,
     setCells,
+    selectedNCells,
   };
 };

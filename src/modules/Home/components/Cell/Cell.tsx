@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Unstable_Grid2 as Grid, Button } from '@mui/material';
 import { CellProps } from './Cell.types';
+import { CellButton } from './Cell.styles';
 
 const Cell: FC<CellProps> = ({
   id,
@@ -16,15 +17,15 @@ const Cell: FC<CellProps> = ({
 
   return (
     <Grid>
-      <Button
+      <CellButton
         color="secondary"
         disabled={selected}
         size="medium"
-        variant="outlined"
+        variant="contained"
         onClick={handleSelect}
       >
         {number}
-      </Button>
+      </CellButton>
     </Grid>
   );
 };

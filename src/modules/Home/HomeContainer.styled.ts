@@ -8,7 +8,6 @@ export const Container = styled(Box)({
 
 export const NumbersContainer = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fafafa',
-  padding: theme.spacing(1),
-  textAlign: 'center',
+  padding: theme.spacing(2),
   width: '100%',
 }));

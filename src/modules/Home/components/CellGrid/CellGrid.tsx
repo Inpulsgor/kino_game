@@ -3,9 +3,9 @@ import { Unstable_Grid2 as Grid } from '@mui/material';
 import { Cell } from 'modules/Home/components';
 import { CellGridProps } from './CellGrid.types';
 
-const CellGridBase: FC<CellGridProps> = ({ cells, onSelectNumber }) => {
+const CellGridBase: FC<CellGridProps> = ({ cells = [], onSelectNumber }) => {
   return (
-    <Grid container>
+    <Grid container spacing={1}>
       {cells.map(cell => (
         <Cell key={cell.id} {...cell} onSelectNumber={onSelectNumber} />
       ))}
