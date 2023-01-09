@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Container } from '@mui/material';
 import { Wrappper, Title } from 'modules/NotFound/NotFoundContainer.styled';
-import { ROUTES } from 'types/enum';
+import { ROUTES } from 'common/routes/routes';
 
 const NotFoundContainer: FC = () => {
   const navigate = useNavigate();

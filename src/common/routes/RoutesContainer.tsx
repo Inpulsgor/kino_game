@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import { HomePage, NotFoundPage } from 'common/routes/routes';
 import { AppLayout } from 'common/layout';
 import { Loader } from 'common/components';
-import { ROUTES } from 'types/enum';
+import { ROUTES } from 'common/routes/routes';
 
 export const RoutesContainer: FC = () => {
   return (

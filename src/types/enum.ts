@@ -3,11 +3,6 @@ export enum LOADING_STATUS {
   LOADING = 'LOADING',
 }
 
-export enum ROUTES {
-  HOME = '/',
-  NOT_FOUND = '*',
-}
-
 export enum NETWORK {
   main = 'mainnet-beta',
   devnet = 'devnet',
