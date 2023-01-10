@@ -1,10 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, Paper } from '@mui/material';
-
-export const Container = styled(Box)({
-  height: '100%',
-  width: '100%',
-});
+import { Typography, Paper } from '@mui/material';
 
 export const PaperBox = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fafafa',

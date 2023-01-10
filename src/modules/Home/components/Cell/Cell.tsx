@@ -6,23 +6,27 @@ import { CellButton } from './Cell.styles';
 const Cell: FC<CellProps> = ({
   id,
   number,
+  size = 'medium',
+  color = 'secondary',
   selected = false,
+  disabled = false,
+  variant = 'contained',
   onSelectNumber,
 }) => {
   const handleSelect = () => {
     if (!id && !onSelectNumber) return;
 
-    onSelectNumber(id);
+    onSelectNumber?.(id);
   };
 
   return (
     <Grid>
       <CellButton
-        color="secondary"
-        disabled={selected}
-        size="medium"
-        variant="contained"
+        color={color}
+        size={size}
+        variant={variant}
         onClick={handleSelect}
+        disabled={selected || disabled}
       >
         {number}
       </CellButton>

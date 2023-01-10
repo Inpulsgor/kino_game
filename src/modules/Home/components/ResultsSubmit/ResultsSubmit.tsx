@@ -1,15 +1,19 @@
 import { FC } from 'react';
 import { Unstable_Grid2 as Grid, Button } from '@mui/material';
-import { PaperBox } from './ResultsSubmit.styles';
+// import { PaperBox } from './ResultsSubmit.styles';
+import { ResultsSubmitProps } from './ResultsSubmit.types';
 
-const ResultsSubmit: FC = () => {
+const ResultsSubmit: FC<ResultsSubmitProps> = ({ onSubmit, disabled }) => {
   return (
     <Grid>
-      <PaperBox>
-        <Button fullWidth variant="contained">
-          Submit Results
-        </Button>
-      </PaperBox>
+      <Button
+        fullWidth
+        variant="contained"
+        onClick={onSubmit}
+        // disabled={disabled}
+      >
+        Submit Results
+      </Button>
     </Grid>
   );
 };

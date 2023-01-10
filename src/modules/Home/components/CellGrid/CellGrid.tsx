@@ -5,7 +5,7 @@ import { CellGridProps } from './CellGrid.types';
 
 const CellGridBase: FC<CellGridProps> = ({ cells = [], onSelectNumber }) => {
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={0.1}>
       {cells.map(cell => (
         <Cell key={cell.id} {...cell} onSelectNumber={onSelectNumber} />
       ))}

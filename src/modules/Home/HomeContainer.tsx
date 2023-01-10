@@ -1,12 +1,14 @@
 import { FC, useCallback } from 'react';
+import { useWallet } from '@solana/wallet-adapter-react';
 import { Unstable_Grid2 as Grid, Typography } from '@mui/material';
-import { CellGrid, ResultsSubmit } from 'modules/Home/components';
-import { HomeContainerProps } from 'modules/Home/HomeContainer.types';
-import { Container, NumbersContainer } from 'modules/Home/HomeContainer.styled';
+import { ResultsSubmit, ResultsGrid, PickGrid } from 'modules/Home/components';
 import { useCells } from 'common/hooks/useCells';
 import { ICell } from './models/cell';
+import { HomeContainerProps } from 'modules/Home/HomeContainer.types';
+import { Container, PaperBox } from 'modules/Home/HomeContainer.styled';
 
 const HomeContainer: FC<HomeContainerProps> = () => {
+  const { connected } = useWallet();
   const { cells, selectedNCells, setCells } = useCells();
 
   const handleSelectNumber = useCallback(
@@ -27,6 +29,13 @@ const HomeContainer: FC<HomeContainerProps> = () => {
     [cells, setCells],
   );
 
+  const handleSubmitResults = useCallback(() => {
+    console.log(
+      'cells',
+      cells.filter(cell => cell.selected),
+    );
+  }, [cells]);
+
   console.log('selectedNCells', selectedNCells);
 
   return (
@@ -39,26 +48,23 @@ const HomeContainer: FC<HomeContainerProps> = () => {
         height="100%"
       >
         <Grid xs={8}>
-          <NumbersContainer>
-            <CellGrid cells={cells} onSelectNumber={handleSelectNumber} />
-          </NumbersContainer>
+          <ResultsGrid cells={cells} />
         </Grid>
+
         <Grid xs={4}>
-          <Grid container flexDirection="column">
-            <Grid>
-              <NumbersContainer>
+          <PaperBox>
+            <Grid container flexDirection="column">
+              <Grid>
                 <Typography color="#1f1f1f">Selected numbers:</Typography>
-                <CellGrid
-                  cells={selectedNCells}
-                  onSelectNumber={handleSelectNumber}
-                />
-              </NumbersContainer>
+              </Grid>
+
+              <PickGrid cells={cells} handleSelectNumber={handleSelectNumber} />
+              <ResultsSubmit
+                onSubmit={handleSubmitResults}
+                disabled={!connected}
+              />
             </Grid>
-            <Grid>
-              <NumbersContainer>section</NumbersContainer>
-            </Grid>
-            <ResultsSubmit />
-          </Grid>
+          </PaperBox>
         </Grid>
       </Grid>
     </Container>
