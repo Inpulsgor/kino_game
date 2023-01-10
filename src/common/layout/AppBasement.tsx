@@ -13,7 +13,7 @@ const AppContainer = styled(Container)({
   justifyContent: 'center',
   alignItems: 'center',
   height: '100%',
-  padding: '6px 0',
+  padding: '20px 0',
 });
 
 const AppBasement: FC<AppBasementProps> = () => {

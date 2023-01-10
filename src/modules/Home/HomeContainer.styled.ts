@@ -7,7 +7,9 @@ export const Container = styled(Box)({
 });
 
 export const PaperBox = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fafafa',
+  backgroundColor: 'transparent',
+  // backgroundColor: '#fafafa',
   padding: theme.spacing(2),
+  height: '100%',
   width: '100%',
 }));
