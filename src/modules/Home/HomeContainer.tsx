@@ -56,6 +56,9 @@ const HomeContainer: FC<HomeContainerProps> = () => {
         <Grid xs={8}>
           <PaperBox>
             <ProgressBar progress={0} />
+            <Divider textAlign="left" sx={{ marginBottom: 2 }}>
+              LEFT
+            </Divider>
             <ResultsGrid cells={cells} />
           </PaperBox>
         </Grid>

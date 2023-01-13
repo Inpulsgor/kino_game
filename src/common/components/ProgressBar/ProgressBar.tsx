@@ -12,7 +12,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ progress = 0 }) => {
 
       <Box sx={{ minWidth: 35 }}>
         <Typography variant="body2" color="text.secondary">
-          {progress}
+          {progress} %
         </Typography>
       </Box>
     </WrapperBox>
