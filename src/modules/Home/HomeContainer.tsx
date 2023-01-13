@@ -1,7 +1,7 @@
 import { FC, useCallback } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { Unstable_Grid2 as Grid, Typography } from '@mui/material';
-import { ProgressBar, Modal } from 'common/components';
+import { Unstable_Grid2 as Grid, Typography, Divider } from '@mui/material';
+import { ProgressBar } from 'common/components';
 import { ResultsSubmit, ResultsGrid, PickGrid } from 'modules/Home/components';
 import { useCells } from 'common/hooks/useCells';
 import { ICell } from './models/cell';
@@ -67,9 +67,13 @@ const HomeContainer: FC<HomeContainerProps> = () => {
                 <Typography color="#fff">Selected numbers:</Typography>
               </Grid>
 
+              <Divider variant="middle" />
+
               <Grid>
                 <PickGrid cells={cells} handleSelectNumber={onSelectNumber} />
               </Grid>
+
+              <Divider variant="middle" />
 
               <ResultsSubmit onSubmit={onSubmit} disabled={!connected} />
             </Grid>

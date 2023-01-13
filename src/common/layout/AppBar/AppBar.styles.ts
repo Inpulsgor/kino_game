@@ -31,6 +31,10 @@ export const WalletButton = styled(WalletMultiButton)(() => ({
   '&:not([disabled]):focus-visible': {
     outlineColor: 'none',
   },
+
+  '&:focus': {
+    outline: 'none',
+  },
 }));
 
 export const WalletKey = styled(Typography)({
