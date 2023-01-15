@@ -6,6 +6,7 @@ import { CellButton } from './Cell.styles';
 const Cell: FC<CellProps> = ({
   id,
   number,
+  winner,
   size = 'medium',
   color = 'secondary',
   selected = false,
@@ -27,6 +28,13 @@ const Cell: FC<CellProps> = ({
         variant={variant}
         onClick={handleSelect}
         disabled={selected || disabled}
+        sx={{
+          width: '100%',
+          '&.Mui-disabled': {
+            color: winner ? '#fff' : '#1f1f1f',
+            backgroundColor: winner ? 'orange' : '#fff',
+          },
+        }}
       >
         {number}
       </CellButton>

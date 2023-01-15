@@ -10,7 +10,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ progress = 0 }) => {
         <LinearProgress value={progress} variant="determinate" />
       </Box>
 
-      <Box sx={{ minWidth: 35 }}>
+      <Box sx={{ minWidth: 45 }}>
         <Typography variant="body2" color="text.secondary">
           {progress} %
         </Typography>

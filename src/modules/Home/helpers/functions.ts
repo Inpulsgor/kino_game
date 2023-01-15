@@ -6,6 +6,7 @@ export const generateCells = (cellsLength: number = 58) => {
     id: null,
     number: 0,
     selected: false,
+    winner: false,
   };
 
   const cells: ICell[] = new Array(cellsLength)

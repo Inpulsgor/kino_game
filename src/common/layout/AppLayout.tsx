@@ -19,7 +19,7 @@ const Layout = styled(Box)({
 		"AppBar"
 		"AppContent"
 		"AppBasement"
-		`,
+	`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',

@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import {
   Unstable_Grid2 as Grid,
@@ -47,6 +47,33 @@ const HomeContainer: FC<HomeContainerProps> = () => {
 
   console.log('selectedNCells', selectedNCells);
 
+  const progress = useMemo(() => {
+    if (gameResults?.slot_now && gameResults?.current_winner_slot) {
+      return (gameResults?.slot_now - gameResults?.current_winner_slot) / 600;
+    }
+
+    return 0;
+  }, [gameResults]);
+
+  const highlightedResults = useMemo(() => {
+    if (gameResults?.current_winner_numbers) {
+      return cells.map(cell => {
+        if (gameResults.current_winner_numbers.includes(cell.number)) {
+          return {
+            ...cell,
+            winner: true,
+          };
+        }
+
+        return cell;
+      });
+    }
+
+    return cells;
+  }, [gameResults, cells]);
+
+  console.log('highlightedResults :>> ', highlightedResults);
+
   return (
     <Container>
       <Grid container spacing={1} height="100%">
@@ -55,18 +82,31 @@ const HomeContainer: FC<HomeContainerProps> = () => {
             <Grid container spacing={2} sx={{ height: '100%' }}>
               <Grid xs>
                 <Typography>Current draw:</Typography>
+                <Typography variant="h2" component="span">
+                  {gameResults?.current_winner_slot}
+                </Typography>
               </Grid>
               <Divider orientation="vertical" flexItem />
               <Grid xs>
                 <Typography>Current slot:</Typography>
+                <Typography variant="h2" component="span">
+                  {gameResults?.slot_now}
+                </Typography>
               </Grid>
               <Divider orientation="vertical" flexItem />
               <Grid xs>
                 <Typography>Next draw:</Typography>
+                <Typography variant="h2" component="span">
+                  {gameResults?.next_winner_slot}
+                </Typography>
               </Grid>
               <Divider orientation="vertical" flexItem />
               <Grid xs>
-                <Typography>Update in 0 seconds:</Typography>
+                <Typography>Update in:</Typography>
+                <Typography variant="h2" component="span">
+                  {gameResults?.snooze}
+                </Typography>{' '}
+                seconds
               </Grid>
             </Grid>
           </PaperBox>
@@ -74,11 +114,11 @@ const HomeContainer: FC<HomeContainerProps> = () => {
 
         <Grid xs={8}>
           <PaperBox>
-            <ProgressBar progress={0} />
+            <ProgressBar progress={Number(progress.toFixed(2))} />
             <Divider textAlign="left" sx={{ marginBottom: 3 }}>
               <Chip label="Winning numbers" />
             </Divider>
-            <ResultsGrid cells={cells} />
+            <ResultsGrid cells={highlightedResults} />
           </PaperBox>
         </Grid>
 
