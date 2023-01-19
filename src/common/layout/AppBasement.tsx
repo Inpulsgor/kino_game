@@ -1,5 +1,6 @@
 import { FC, DetailedHTMLProps, HTMLAttributes } from 'react';
-import { Container, Typography, Link } from '@mui/material';
+import { Container, Typography, Link, Box } from '@mui/material';
+import { Favorite as FavoriteIcon } from '@mui/icons-material';
 import { styled } from '@mui/system';
 
 export type AppBasementProps = DetailedHTMLProps<
@@ -16,13 +17,15 @@ const AppContainer = styled(Container)({
   padding: '20px 0',
 });
 
-const DevLink = styled(Link)({
-  textDecoration: 'none',
+const Copyright = styled(Box)({
+  display: 'flex',
+  gap: 4,
 });
 
-const Heart = styled(Typography)({
-  color: '#FF0000',
-}) as typeof Typography;
+const DevLink = styled(Link)({
+  textDecoration: 'none',
+  textTransform: 'uppercase',
+});
 
 const AppBasement: FC<AppBasementProps> = () => {
   const currentYear = new Date().getFullYear();
@@ -30,13 +33,26 @@ const AppBasement: FC<AppBasementProps> = () => {
   // Copyright ©
   return (
     <AppContainer maxWidth="xl">
-      <Typography variant="body2" component="span">
-        Developed with <Heart component="span">♥️</Heart> by{' '}
-        <DevLink href="https://metame.vercel.app" target="_blank">
-          Metame
-        </DevLink>{' '}
-        team © {currentYear}
-      </Typography>
+      <Copyright>
+        <Typography variant="body2" component="span">
+          Developed with
+        </Typography>
+
+        <FavoriteIcon
+          sx={{ color: '#FF0000', width: '18px', height: '18px' }}
+        />
+
+        <Typography variant="body2">
+          by{' '}
+          <DevLink href="https://metame.vercel.app" target="_blank">
+            metame
+          </DevLink>
+        </Typography>
+
+        <Typography variant="body2" component="span">
+          team © {currentYear}
+        </Typography>
+      </Copyright>
     </AppContainer>
   );
 };

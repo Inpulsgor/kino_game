@@ -1,22 +1,12 @@
 import { FC } from 'react';
-// eslint-disable-next-line import/named
-import { Backdrop, CircularProgress, Theme } from '@mui/material';
-
-interface LoaderProps {
-  isLoading: boolean;
-}
-
-export const styles = {
-  backdrop: {
-    color: 'custom.white',
-    zIndex: (theme: Theme) => theme.zIndex.drawer + 1,
-  },
-};
+import { CircularProgress } from '@mui/material';
+import { LoaderProps } from './Loader.types';
+import { LoaderBackdrop } from './Loader.styles';
 
 const Loader: FC<LoaderProps> = ({ isLoading = false }) => (
-  <Backdrop sx={styles.backdrop} open={isLoading}>
+  <LoaderBackdrop open={isLoading} transitionDuration={1}>
     <CircularProgress color="inherit" />
-  </Backdrop>
+  </LoaderBackdrop>
 );
 
 export default Loader;

@@ -1,6 +1,5 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { NotificationProvider } from 'common/contexts/NotificationProvider';
@@ -18,16 +17,14 @@ const root = createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <StrictMode>
-    <BrowserRouter>
-      <HelmetProvider>
-        <NotificationProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <App />
-          </ThemeProvider>
-        </NotificationProvider>
-      </HelmetProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <NotificationProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </NotificationProvider>
+    </HelmetProvider>
   </StrictMode>,
 );
 

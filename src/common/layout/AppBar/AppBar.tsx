@@ -2,9 +2,10 @@ import { FC } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Container, IconButton, Tooltip } from '@mui/material';
 import { Help as HelpIcon } from '@mui/icons-material';
-import { ReactComponent as PhantomIcon } from 'common/assets/phantom.svg';
-import { Modal } from 'common/components';
+
 import { useModal } from 'common/hooks/useModal';
+import { HowToPlayModal } from 'modules/Home/components';
+import { ReactComponent as PhantomIcon } from 'common/assets/phantom.svg';
 import { AppHeader, NavBar, WalletButton, WalletKey } from './AppBar.styles';
 
 const AppBar: FC = () => {
@@ -31,9 +32,7 @@ const AppBar: FC = () => {
         </Container>
       </AppHeader>
 
-      <Modal isOpen={isOpen} handleClose={closeModal}>
-        How to play game?
-      </Modal>
+      <HowToPlayModal isOpen={isOpen} handleClose={closeModal} />
     </>
   );
 };

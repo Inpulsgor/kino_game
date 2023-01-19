@@ -3,3 +3,8 @@ export { default as Cell } from './Cell/Cell';
 export { default as ResultsGrid } from './ResultsGrid/ResultsGrid';
 export { default as ResultsSubmit } from './ResultsSubmit/ResultsSubmit';
 export { default as PickGrid } from './PickGrid/PickGrid';
+export { default as HowToPlayModal } from './HowToPlayModal/HowToPlayModal';
+export { default as TabPanel } from './HowToPlayModal/TabPanel';
+export { default as InfoPanel } from './InfoPanel/InfoPanel';
+export { default as WinnerPanel } from './WinnerPanel/WinnerPanel';
+export { default as PredictionPanel } from './PredictionPanel/PredictionPanel';

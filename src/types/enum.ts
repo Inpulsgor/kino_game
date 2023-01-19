@@ -8,3 +8,8 @@ export enum NETWORK {
   devnet = 'devnet',
   testnet = 'testnet',
 }
+
+export enum ROUTES {
+  HOME = '/',
+  NOT_FOUND = '*',
+}

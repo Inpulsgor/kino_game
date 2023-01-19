@@ -1,9 +1,10 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { Box } from '@mui/material';
 
 import { AppBar, AppContent, AppBasement } from 'common/layout';
+import { Loader } from 'common/components';
 
 export interface AppLayoutProps {
   children?: ReactNode;
@@ -29,7 +30,9 @@ const AppLayout: FC<AppLayoutProps> = () => (
   <Layout>
     <AppBar />
     <AppContent>
-      <Outlet />
+      <Suspense fallback={<Loader isLoading />}>
+        <Outlet />
+      </Suspense>
     </AppContent>
     <AppBasement />
   </Layout>

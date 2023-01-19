@@ -11,5 +11,5 @@ export const Wrappper = styled(Box)({
 });
 
 export const Title = styled(Typography)({
-  mb: '20px',
+  marginBottom: '10px',
 });
