@@ -5,7 +5,7 @@ import { Help as HelpIcon } from '@mui/icons-material';
 
 import { useModal } from 'common/hooks/useModal';
 import { HowToPlayModal } from 'modules/Home/components';
-import { ReactComponent as PhantomIcon } from 'common/assets/phantom.svg';
+// import { ReactComponent as PhantomIcon } from 'common/assets/phantom.svg';
 import { AppHeader, NavBar, WalletButton, WalletKey } from './AppBar.styles';
 
 const AppBar: FC = () => {
@@ -26,7 +26,8 @@ const AppBar: FC = () => {
             </Tooltip>
 
             <WalletButton>
-              {pubKey ? <WalletKey>{pubKey}</WalletKey> : <PhantomIcon />}
+              {pubKey && <WalletKey>{pubKey}</WalletKey>}
+              {/* {pubKey ? <WalletKey>{pubKey}</WalletKey> : <PhantomIcon />} */}
             </WalletButton>
           </NavBar>
         </Container>

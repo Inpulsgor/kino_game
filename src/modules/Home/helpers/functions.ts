@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ICell } from 'modules/Home/models/cell';
+import { ICell, IField } from 'modules/Home/models/cell';
 
 export const generateCells = (cellsLength: number = 58) => {
   const cell: ICell = {
@@ -25,4 +25,18 @@ export const a11yProps = (index: number) => {
     id: `action-tab-${index}`,
     'aria-controls': `action-tabpanel-${index}`,
   };
+};
+
+export const generateMatchFields = (fieldsLength: number = 12) => {
+  const field: IField = {
+    id: null,
+  };
+
+  const fields: IField[] = new Array(fieldsLength)
+    .fill(field)
+    .map((field, index) => ({
+      id: uuidv4(),
+    }));
+
+  return fields;
 };

@@ -5,18 +5,36 @@ import { grey, teal, red } from '@mui/material/colors';
 let theme: Theme = createTheme({
   palette: {
     mode: 'dark',
-    // common: {},
-    // primary: {},
-    // secondary: {},
-    // success: {},
-    // info: {},
-    // error: {},
-    // background: {},
-    // text: {},
+    common: {
+      white: '#FFF',
+      black: '#000',
+    },
+    primary: {
+      main: '#2B1200',
+    },
+    secondary: {
+      main: '#8D1E00',
+    },
+    success: {
+      main: '#CF5C00',
+    },
+    info: {
+      main: '#F1D26C',
+    },
+    error: {
+      main: '#FF0000',
+    },
+    background: {
+      paper: '#CF5C00',
+    },
+    text: {
+      primary: '#FFF',
+      secondary: '#EAB809',
+    },
   },
   typography: {
     fontFamily: [
-      'Roboto',
+      'Russo One',
       'sans-serif',
       '-apple-system',
       'BlinkMacSystemFont',
@@ -31,12 +49,25 @@ let theme: Theme = createTheme({
     fontWeightRegular: 400,
     fontWeightMedium: 500,
     fontWeightBold: 600,
+    htmlFontSize: 16,
     h2: {
-      fontSize: '32px',
+      fontFamily: 'Russo One',
+      fontSize: '42px',
       fontWeight: 700,
       textTransform: 'uppercase',
+      color: 'transparent',
+      letterSpacing: '4px',
+      userSelect: 'none',
+      WebkitTextStroke: '0.5px #EAB809',
+
+      '&:hover': {
+        transition: 'all linear 0.2s',
+        color: '#EAB809',
+        WebkitTextStroke: '1px #EAB809',
+      },
     },
     h3: {
+      fontFamily: 'Russo One',
       fontSize: '20px',
       fontWeight: 700,
       textTransform: 'uppercase',
@@ -56,7 +87,7 @@ let theme: Theme = createTheme({
       styleOverrides: {
         body: {
           background:
-            'linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)',
+            'linear-gradient(-45deg, #304E30, #5B7C70, #172A10, #796E20)',
           backgroundSize: '400% 400%',
           animation: 'gradient 15s ease infinite',
           height: '100vh',
@@ -91,13 +122,6 @@ let theme: Theme = createTheme({
         },
       },
     },
-    // MuiButton: {
-    // 	styleOverrides: {
-    // 		disabled: {
-    // 			backgroundColor: 'orange'
-    // 		}
-    // 	}
-    // }
   },
 });
 

@@ -32,7 +32,7 @@ const Cell: FC<CellProps> = ({
           width: '100%',
           '&.Mui-disabled': {
             color: winner ? '#fff' : '#1f1f1f',
-            backgroundColor: winner ? 'orange' : '#fff',
+            backgroundColor: winner ? '#EAB809' : '#fff',
           },
         }}
       >

@@ -8,3 +8,4 @@ export { default as TabPanel } from './HowToPlayModal/TabPanel';
 export { default as InfoPanel } from './InfoPanel/InfoPanel';
 export { default as WinnerPanel } from './WinnerPanel/WinnerPanel';
 export { default as PredictionPanel } from './PredictionPanel/PredictionPanel';
+export { default as MatchNumbers } from './PredictionPanel/MatchNumbers/MatchNumbers';

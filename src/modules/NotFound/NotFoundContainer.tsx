@@ -12,7 +12,7 @@ const NotFoundContainer: FC = () => {
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout> | null = null;
 
-    if (!counter) navigate(ROUTES.HOME);
+    if (!counter) navigate(ROUTES.KINO);
 
     timer = setTimeout(() => setCounter(counter - 1), 1000);
 

@@ -10,6 +10,6 @@ export enum NETWORK {
 }
 
 export enum ROUTES {
-  HOME = '/',
+  KINO = '/',
   NOT_FOUND = '*',
 }

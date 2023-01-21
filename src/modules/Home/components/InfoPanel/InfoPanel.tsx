@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
+import { useTheme } from '@mui/material/styles';
 import {
   Unstable_Grid2 as Grid,
   Typography,
@@ -6,10 +7,13 @@ import {
   Skeleton,
   Stack,
 } from '@mui/material';
-import { InfoPanelProps } from './InfoPanel.types';
+import { InfoPanelProps, Renderer } from './InfoPanel.types';
 import { PaperBox } from './InfoPanel.styles';
+import Countdown, { zeroPad } from 'react-countdown';
 
 const InfoPanel: FC<InfoPanelProps> = ({ gameResults }) => {
+  const theme = useTheme();
+
   const {
     current_winner_slot: winner_slot,
     next_winner_slot,
@@ -17,8 +21,33 @@ const InfoPanel: FC<InfoPanelProps> = ({ gameResults }) => {
     snooze,
   } = gameResults;
 
+  const endCountdown = useMemo(
+    () => Date.now() + (snooze ? snooze * 1000 : 0),
+    [snooze],
+  );
+
+  const renderer = ({ hours, minutes, seconds, completed }: Renderer) => {
+    if (completed) {
+      return (
+        <Typography
+          color={theme.palette.success.main}
+          variant="h2"
+          component="span"
+        >
+          Woohoo
+        </Typography>
+      );
+    }
+
+    return (
+      <Typography variant="h2" component="span">
+        {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
+      </Typography>
+    );
+  };
+
   return (
-    <Grid xs={12} sx={{ maxHeight: '120px', height: '100%' }} marginTop="auto">
+    <Grid xs={12} sx={{ maxHeight: '130px', height: '100%' }} marginTop="auto">
       <PaperBox>
         <Stack
           direction="row"
@@ -49,9 +78,17 @@ const InfoPanel: FC<InfoPanelProps> = ({ gameResults }) => {
           <Grid xs>
             <Typography>Update in:</Typography>
             <Typography variant="h2" component="span">
-              {snooze ? snooze : <Skeleton height="40px" />}
-            </Typography>{' '}
-            {snooze && 'seconds'}
+              {snooze ? (
+                <Countdown
+                  intervalDelay={1}
+                  precision={3}
+                  date={endCountdown}
+                  renderer={renderer}
+                />
+              ) : (
+                <Skeleton height="40px" />
+              )}
+            </Typography>
           </Grid>
         </Stack>
       </PaperBox>

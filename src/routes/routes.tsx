@@ -7,8 +7,8 @@ import {
 import { AppLayout } from 'common/layout';
 import { ROUTES } from 'types/enum';
 
-export const HomePage = lazy(
-  () => import('pages/Home' /* webpackChunkName: "HomePage" */),
+export const KinoPage = lazy(
+  () => import('pages/Kino' /* webpackChunkName: "KinoPage" */),
 );
 
 export const NotFoundPage = lazy(
@@ -18,8 +18,8 @@ export const NotFoundPage = lazy(
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path={ROUTES.HOME} element={<AppLayout />}>
-        <Route index element={<HomePage />} />
+      <Route path={ROUTES.KINO} element={<AppLayout />}>
+        <Route index element={<KinoPage />} />
       </Route>
       <Route path={ROUTES.NOT_FOUND} element={<NotFoundPage />} />,
     </>,

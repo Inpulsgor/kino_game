@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { Unstable_Grid2 as Grid } from '@mui/material';
 import { useCells } from 'common/hooks/useCells';
 import { useResults } from 'queries/useResults';
@@ -7,9 +7,8 @@ import {
   WinnerPanel,
   PredictionPanel,
 } from 'modules/Home/components';
-import { ICell } from 'modules/Home/models/cell';
 import { FResultsData } from 'modules/Home/models/results';
-import { HomeContainerProps } from 'modules/Home/HomeContainer.types';
+import { HomeContainerProps } from 'modules/Home/KinoContainer.types';
 
 const HomeContainer: FC<HomeContainerProps> = () => {
   const { cells, setCells } = useCells();
@@ -45,42 +44,13 @@ const HomeContainer: FC<HomeContainerProps> = () => {
     return cells;
   }, [gameResults, cells]);
 
-  const onSelectNumber = useCallback(
-    (cellID: string | null) => {
-      const updatedCells: ICell[] = cells.map(cell => {
-        if (cell.id === cellID) {
-          return {
-            ...cell,
-            selected: true,
-          };
-        }
-
-        return cell;
-      });
-
-      setCells(updatedCells);
-    },
-    [cells, setCells],
-  );
-
-  const onSubmit = useCallback(() => {
-    console.log(
-      'cells',
-      cells.filter(cell => cell.selected),
-    );
-  }, [cells]);
-
   return (
     <Grid container spacing={1} alignItems="center">
       <InfoPanel gameResults={gameResults} />
 
       <WinnerPanel progress={progress} results={highlightedResults} />
 
-      <PredictionPanel
-        cells={cells}
-        onSelect={onSelectNumber}
-        onSubmit={onSubmit}
-      />
+      <PredictionPanel cells={cells} setCells={setCells} />
     </Grid>
   );
 };
