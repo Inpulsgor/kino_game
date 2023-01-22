@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Grid, LinearProgress, Fade, CircularProgress } from '@mui/material';
+import { Fade, CircularProgress } from '@mui/material';
 
 interface PreloaderProps {
   isLoading?: boolean;

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Grid, LinearProgress } from '@mui/material';
+import { Unstable_Grid2 as Grid, LinearProgress } from '@mui/material';
 import { Preloader } from 'common/components';
 import { ProgressBarProps } from './ProgressBar.types';
 import { Percentage } from './ProgressBar.styles';
