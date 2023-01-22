@@ -12,5 +12,7 @@ export const useResults = () => {
   return useQuery<ResultsResponse>({
     queryKey: 'results',
     queryFn: fetchResults,
+    refetchInterval: 6000,
+    refetchOnWindowFocus: true,
   });
 };

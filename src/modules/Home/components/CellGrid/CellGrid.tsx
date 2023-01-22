@@ -7,7 +7,13 @@ const CellGridBase: FC<CellGridProps> = ({ cells = [], onSelectNumber }) => {
   return (
     <Grid container spacing={0.5} justifyContent="center">
       {cells.map(cell => (
-        <Cell key={cell.id} {...cell} onSelectNumber={onSelectNumber} />
+        <Cell
+          key={cell.id}
+          {...cell}
+          onSelectNumber={onSelectNumber}
+          gridSize={2}
+          tooltipTitle={`Select number ${cell.number}`}
+        />
       ))}
     </Grid>
   );

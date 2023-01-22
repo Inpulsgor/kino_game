@@ -1,26 +1,38 @@
 import { FC } from 'react';
-import { useTheme } from '@mui/material/styles';
 import { Grid, LinearProgress } from '@mui/material';
+import { Preloader } from 'common/components';
 import { ProgressBarProps } from './ProgressBar.types';
 import { Percentage } from './ProgressBar.styles';
 
-const ProgressBar: FC<ProgressBarProps> = ({ progress = 0 }) => {
-  const theme = useTheme();
-
+const ProgressBar: FC<ProgressBarProps> = ({ progress = 0, isLoading }) => {
   return (
     <Grid
       container
       xs={12}
-      // spacing={2}
+      spacing={1}
       alignItems="center"
       justifyContent="space-between"
+      sx={{ minHeight: 56 }}
     >
-      <Grid item xs={10}>
-        <LinearProgress color="info" value={progress} variant="determinate" />
+      <Grid xs={10}>
+        <LinearProgress
+          color="success"
+          value={progress}
+          variant="determinate"
+        />
       </Grid>
 
-      <Grid item xs={2}>
-        <Percentage>{progress} %</Percentage>
+      <Grid
+        xs={2}
+        justifyContent="center"
+        alignItems="center"
+        textAlign="center"
+      >
+        {isLoading ? (
+          <Preloader isLoading={isLoading} />
+        ) : (
+          <Percentage>{progress?.toFixed(0)} %</Percentage>
+        )}
       </Grid>
     </Grid>
   );

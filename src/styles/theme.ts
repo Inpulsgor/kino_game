@@ -16,10 +16,10 @@ let theme: Theme = createTheme({
       main: '#8D1E00',
     },
     success: {
-      main: '#CF5C00',
+      main: '#EAB809',
     },
     info: {
-      main: '#F1D26C',
+      main: '#CF5C00',
     },
     error: {
       main: '#FF0000',

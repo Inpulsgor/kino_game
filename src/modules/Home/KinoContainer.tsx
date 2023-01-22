@@ -13,7 +13,7 @@ import { HomeContainerProps } from 'modules/Home/KinoContainer.types';
 const HomeContainer: FC<HomeContainerProps> = () => {
   const { cells, setCells } = useCells();
 
-  const { data: resultsData, isLoading: isFetchingResults } = useResults();
+  const { data: resultsData, refetch, isLoading } = useResults();
 
   const gameResults = useMemo(() => {
     return FResultsData(resultsData);
@@ -21,7 +21,7 @@ const HomeContainer: FC<HomeContainerProps> = () => {
 
   const progress = useMemo(() => {
     if (gameResults?.slot_now && gameResults?.current_winner_slot) {
-      return (gameResults?.slot_now - gameResults?.current_winner_slot) / 600;
+      return (gameResults?.slot_now - gameResults?.current_winner_slot) / 6;
     }
 
     return 0;
@@ -46,11 +46,23 @@ const HomeContainer: FC<HomeContainerProps> = () => {
 
   return (
     <Grid container spacing={1} alignItems="center">
-      <InfoPanel gameResults={gameResults} />
+      <InfoPanel
+        isLoading={isLoading}
+        refetch={refetch}
+        gameResults={gameResults}
+      />
 
-      <WinnerPanel progress={progress} results={highlightedResults} />
+      <WinnerPanel
+        isLoading={isLoading}
+        progress={progress}
+        results={highlightedResults}
+      />
 
-      <PredictionPanel cells={cells} setCells={setCells} />
+      <PredictionPanel
+        isLoading={isLoading}
+        cells={cells}
+        setCells={setCells}
+      />
     </Grid>
   );
 };

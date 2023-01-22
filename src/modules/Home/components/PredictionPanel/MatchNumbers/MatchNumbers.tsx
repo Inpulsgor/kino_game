@@ -1,20 +1,27 @@
 import { FC } from 'react';
-import { Unstable_Grid2 as Grid, Typography, Box } from '@mui/material';
-import { generateMatchFields } from 'modules/Home/helpers/functions';
+import { Unstable_Grid2 as Grid, Typography } from '@mui/material';
+import { Cell } from 'modules/Home/components';
+import { MatchNumbersProps } from './MatchNumbers.types';
 
-const MatchNumbers: FC = () => {
-  const matchFields = generateMatchFields();
-
+const MatchNumbers: FC<MatchNumbersProps> = ({
+  selectedNumbers,
+  onSelectNumber,
+}) => {
   return (
     <Grid>
       <Grid container>
-        <Typography color="#fff">Selected numbers:</Typography>
+        <Typography>Selected numbers (max 7):</Typography>
 
-        <Grid container xs={12} spacing={1}>
-          {matchFields.map((field, index) => (
-            <Grid key={field.id} xs={2}>
-              <Box sx={{ border: '1px solid #fff' }}>{index}</Box>
-            </Grid>
+        <Grid container xs={12} spacing={1} sx={{ minHeight: '87px' }}>
+          {selectedNumbers.map(cell => (
+            <Cell
+              key={cell.id}
+              {...cell}
+              onSelectNumber={onSelectNumber}
+              gridSize={2}
+              color="success"
+              tooltipTitle={`Remove number ${cell.number}`}
+            />
           ))}
         </Grid>
       </Grid>

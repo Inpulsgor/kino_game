@@ -1,12 +1,11 @@
 import { styled } from '@mui/system';
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
-export const Percentage = styled(Typography)(() => ({
+export const Percentage = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
-  fontSize: '32px',
+  fontSize: '36px',
   minWidth: '150px',
-  WebkitTextStroke: '0.5px #FFF',
-  color: 'transparent',
+  color: theme.palette.success.main,
   letterSpacing: '4px',
   userSelect: 'none',
 

@@ -14,4 +14,6 @@ export interface CellProps extends ICell {
     | undefined;
   disabled?: boolean;
   variant?: 'contained' | 'outlined' | 'text';
+  gridSize?: number;
+  tooltipTitle?: string;
 }

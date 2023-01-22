@@ -6,4 +6,5 @@ export const PaperBox = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   height: '100%',
   width: '100%',
+  maxHeight: 'fit-content',
 }));

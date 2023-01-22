@@ -1,28 +1,24 @@
 import { FC } from 'react';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { Unstable_Grid2 as Grid, Button, Tooltip } from '@mui/material';
+
+import { Unstable_Grid2 as Grid, Button } from '@mui/material';
 import { ResultsSubmitProps } from './ResultsSubmit.types';
 
-const ResultsSubmit: FC<ResultsSubmitProps> = ({ onSubmit }) => {
-  const { connected } = useWallet();
-
+const ResultsSubmit: FC<ResultsSubmitProps> = ({
+  onSubmit,
+  isDisabled = false,
+}) => {
   return (
     <Grid>
-      <Tooltip
-        title={!connected ? 'Please connect your wallet first' : ''}
-        placement="top"
-        arrow
+      <Button
+        sx={{ minHeight: '44px' }}
+        fullWidth
+        variant="contained"
+        onClick={onSubmit}
+        color="success"
+        disabled={isDisabled}
       >
-        <Button
-          sx={{ minHeight: '44px' }}
-          fullWidth
-          variant="contained"
-          onClick={onSubmit}
-          color="success"
-        >
-          Submit Results
-        </Button>
-      </Tooltip>
+        Submit Results
+      </Button>
     </Grid>
   );
 };

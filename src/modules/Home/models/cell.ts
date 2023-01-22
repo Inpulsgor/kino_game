@@ -4,7 +4,3 @@ export interface ICell {
   selected: boolean;
   winner: boolean;
 }
-
-export interface IField {
-  id: string | null;
-}

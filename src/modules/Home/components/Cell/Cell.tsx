@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Unstable_Grid2 as Grid, Button } from '@mui/material';
+import { Unstable_Grid2 as Grid, Tooltip } from '@mui/material';
 import { CellProps } from './Cell.types';
 import { CellButton } from './Cell.styles';
 
@@ -8,11 +8,13 @@ const Cell: FC<CellProps> = ({
   number,
   winner,
   size = 'medium',
-  color = 'secondary',
+  color = 'info',
   selected = false,
   disabled = false,
   variant = 'contained',
+  gridSize = 1,
   onSelectNumber,
+  tooltipTitle = '',
 }) => {
   const handleSelect = () => {
     if (!id && !onSelectNumber) return;
@@ -21,23 +23,27 @@ const Cell: FC<CellProps> = ({
   };
 
   return (
-    <Grid>
-      <CellButton
-        color={color}
-        size={size}
-        variant={variant}
-        onClick={handleSelect}
-        disabled={selected || disabled}
-        sx={{
-          width: '100%',
-          '&.Mui-disabled': {
-            color: winner ? '#fff' : '#1f1f1f',
-            backgroundColor: winner ? '#EAB809' : '#fff',
-          },
-        }}
-      >
-        {number}
-      </CellButton>
+    <Grid xs={gridSize}>
+      <Tooltip title={tooltipTitle} placement="top">
+        <CellButton
+          color={color}
+          size={size}
+          variant={variant}
+          onClick={handleSelect}
+          disabled={selected || disabled}
+          sx={{
+            width: '100%',
+            minHeight: '30px',
+
+            '&.Mui-disabled': {
+              color: winner ? '#fff' : '#1f1f1f',
+              backgroundColor: winner ? '#EAB809' : '#fff',
+            },
+          }}
+        >
+          {number ? number : ''}
+        </CellButton>
+      </Tooltip>
     </Grid>
   );
 };
