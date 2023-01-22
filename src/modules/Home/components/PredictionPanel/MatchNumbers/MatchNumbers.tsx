@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { Unstable_Grid2 as Grid, Typography } from '@mui/material';
-import { NumberInput } from 'common/components';
+import { Unstable_Grid2 as Grid, Typography, Box } from '@mui/material';
 import { generateMatchFields } from 'modules/Home/helpers/functions';
 
 const MatchNumbers: FC = () => {
@@ -11,7 +10,13 @@ const MatchNumbers: FC = () => {
       <Grid container>
         <Typography color="#fff">Selected numbers:</Typography>
 
-        {/* {matchFields.length > 0 && matchFields.map(field => <NumberInput />)} */}
+        <Grid container xs={12} spacing={1}>
+          {matchFields.map((field, index) => (
+            <Grid key={field.id} xs={2}>
+              <Box sx={{ border: '1px solid #fff' }}>{index}</Box>
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
     </Grid>
   );

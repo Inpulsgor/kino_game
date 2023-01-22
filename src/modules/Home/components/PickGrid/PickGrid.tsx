@@ -5,7 +5,9 @@ import { PickGridProps } from './PickGrid.types';
 
 const PickGrid: FC<PickGridProps> = ({ cells = [], handleSelectNumber }) => (
   <Grid>
-    <Typography color="#fff">Selected numbers:</Typography>
+    <Typography sx={{ mb: 1 }} color="#fff">
+      Select:
+    </Typography>
     <CellGrid cells={cells} onSelectNumber={handleSelectNumber} />
   </Grid>
 );

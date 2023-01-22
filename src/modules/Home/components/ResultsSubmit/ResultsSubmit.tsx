@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Unstable_Grid2 as Grid, Button, Tooltip } from '@mui/material';
-// import { PaperBox } from './ResultsSubmit.styles';
 import { ResultsSubmitProps } from './ResultsSubmit.types';
 
 const ResultsSubmit: FC<ResultsSubmitProps> = ({ onSubmit }) => {
@@ -14,7 +13,13 @@ const ResultsSubmit: FC<ResultsSubmitProps> = ({ onSubmit }) => {
         placement="top"
         arrow
       >
-        <Button fullWidth variant="contained" onClick={onSubmit}>
+        <Button
+          sx={{ minHeight: '44px' }}
+          fullWidth
+          variant="contained"
+          onClick={onSubmit}
+          color="success"
+        >
           Submit Results
         </Button>
       </Tooltip>
