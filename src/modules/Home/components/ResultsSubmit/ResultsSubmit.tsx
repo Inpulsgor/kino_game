@@ -17,7 +17,7 @@ const ResultsSubmit: FC<ResultsSubmitProps> = ({
         color="success"
         disabled={isDisabled}
       >
-        Submit Results
+        Bet 1MM BONK
       </Button>
     </Grid>
   );

@@ -25,8 +25,10 @@ const Wallet: FC<{ children: ReactNode }> = ({ children }) => {
   const { setAlertState } = useNotification();
   const { networkConfiguration } = useNetworkConfiguration();
 
-  const network = networkConfiguration as WalletAdapterNetwork;
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const network = networkConfiguration as WalletAdapterNetwork.Mainnet;
+  const endpoint =
+    'https://solana-mainnet.g.alchemy.com/v2/tJU39R0J_FS049vOxqzyl4qMGP3F-i1e';
+  //const endpoint = useMemo(() => clusterApiUrl('https://solana-mainnet.g.alchemy.com/v2/tJU39R0J_FS049vOxqzyl4qMGP3F-i1e'), [network]);
 
   console.log('network :>> ', network);
 

@@ -7,14 +7,20 @@ import {
   Keypair,
   SystemProgram,
   Transaction,
+  TransactionInstruction,
   PublicKey,
 } from '@solana/web3.js';
-import { TOKEN_PROGRAM_ID, createTransferInstruction } from '@solana/spl-token';
+import {
+  TOKEN_PROGRAM_ID,
+  createTransferInstruction,
+  getAssociatedTokenAddress,
+} from '@solana/spl-token';
 
 import { ResultsSubmit, PickGrid, MatchNumbers } from 'modules/Home/components';
 import { ICell } from 'modules/Home/models/cell';
 import { PredictionPanelProps } from './PredictionPanel.types';
 import { PaperBox } from './PredictionPanel.styles';
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 const PredictionPanelBase: FC<PredictionPanelProps> = ({
   cells,
@@ -78,25 +84,79 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
     const numsSorted = numsArray.sort((a, b) => a - b);
 
     const resultString = numsSorted.join('-'); //! result string in format - 1-2-3-4-5-6-7
+    console.log(resultString);
 
     if (!publicKey) throw new WalletNotConnectedError();
 
-    //! Transaction has to here
+    //here things are set up to work for SOL transaction
+    console.log('preparing to submit');
+    //amount of SOL to be sent. 1_000_000 == 0.001SOL so scale accordingly
+    const lamportsToSend = 1_000_000;
+    //converting the entry wallet to the correct address
+    const toKeypair = new PublicKey(
+      'kinvUZn9fQ2dGCnqY1hSMEjhdxNKTL7SHAZHtY7siFd',
+    );
 
-    // const transaction = new Transaction().add(
-    //   createTransferInstruction(
-    //     fromTokenAccount.address,
-    //     toTokenAccount.address,
-    //     publicKey, // fromWallet.publicKey,
-    //     1,
-    //     [],
-    //     TOKEN_PROGRAM_ID,
-    //   ),
-    // );
+    //Set up the transaction for SOL based
+    //const transferTransaction = new Transaction().add(
+    //  SystemProgram.transfer({
+    //    fromPubkey: publicKey,
+    //    toPubkey: toKeypair,
+    //    lamports: lamportsToSend,
+    //  }),
+    //);
 
-    // const signature = await sendTransaction(transaction, connection);
+    //Below here is implementation of SPL TOKEN TRANSFER
+    //this is the BONK token hash
+    const BONK = new PublicKey('DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263');
 
-    // await connection.confirmTransaction(signature, 'processed');
+    //this is the bonk token account, linked to the treasury
+    const toBonkKeypair = new PublicKey(
+      'Cd8FV17MZr2BoWv2vtPqWpD79rTdWUyW4vvcshuBDrkj',
+    );
+
+    //get the BONK token account linked to player
+    const fromAssociatedTokenAccountPubkey = await getAssociatedTokenAddress(
+      BONK,
+      publicKey,
+    );
+
+    //output to console for personal use/checking
+    console.log(fromAssociatedTokenAccountPubkey.toString());
+    console.log(toBonkKeypair.toString());
+    console.log(publicKey.toString());
+    //1_000_00 = 1 BONK
+    const scale = 1_000_00;
+    //number hardcoded, to become user input
+    const betAmount = 1_000_000 * scale;
+    //pass in the betAmount as the amount to be transferred.
+
+    //using info above use to send a TX with spl-token
+    const transferTransaction = new Transaction().add(
+      createTransferInstruction(
+        fromAssociatedTokenAccountPubkey,
+        toBonkKeypair,
+        publicKey, // fromWallet.publicKey,
+        betAmount,
+        [],
+        TOKEN_PROGRAM_ID,
+      ),
+    );
+
+    //This is the memo part of the transaction, to write the entry on chain
+    await transferTransaction.add(
+      new TransactionInstruction({
+        keys: [{ pubkey: publicKey, isSigner: true, isWritable: true }],
+        data: Buffer.from(resultString, 'utf-8'),
+        programId: new PublicKey('MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr'),
+      }),
+    );
+
+    //and here we are simple sending the TX and confirming it.
+    const signature = await sendTransaction(transferTransaction, connection);
+    console.log(signature);
+    await connection.confirmTransaction(signature, 'processed');
+    console.log('Entry Proccessed');
   }, [selectedNums, enqueueSnackbar, publicKey, sendTransaction, connection]);
 
   return (
