@@ -39,10 +39,11 @@ const HowToPlayModal: FC<HowToPlayModalProps> = ({ isOpen, handleClose }) => {
         </Tabs>
       </Box>
 
-      {howToTabs.map(({ description }, tabIndex) => (
+      {howToTabs.map(({ description, payouts }, tabIndex) => (
         <TabPanel
           key={tabIndex}
           tabIdx={tabIndex}
+          payouts={payouts}
           description={description}
           selectedIdx={selectedTabIndex}
         />

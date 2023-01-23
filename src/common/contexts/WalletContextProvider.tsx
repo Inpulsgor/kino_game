@@ -30,8 +30,6 @@ const Wallet: FC<{ children: ReactNode }> = ({ children }) => {
     'https://solana-mainnet.g.alchemy.com/v2/tJU39R0J_FS049vOxqzyl4qMGP3F-i1e';
   //const endpoint = useMemo(() => clusterApiUrl('https://solana-mainnet.g.alchemy.com/v2/tJU39R0J_FS049vOxqzyl4qMGP3F-i1e'), [network]);
 
-  console.log('network :>> ', network);
-
   const wallets = useMemo(
     () => [
       new PhantomWalletAdapter(),

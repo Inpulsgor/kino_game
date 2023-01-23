@@ -1,11 +1,9 @@
-import { FC, memo, useState, useCallback, useMemo } from 'react';
-import { Unstable_Grid2 as Grid, Divider, Stack, Box } from '@mui/material';
+import { FC, memo, useState, useCallback, useMemo, ChangeEvent } from 'react';
+import { Unstable_Grid2 as Grid, Divider, Stack } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import {
-  Keypair,
-  SystemProgram,
   Transaction,
   TransactionInstruction,
   PublicKey,
@@ -20,13 +18,14 @@ import { ResultsSubmit, PickGrid, MatchNumbers } from 'modules/Home/components';
 import { ICell } from 'modules/Home/models/cell';
 import { PredictionPanelProps } from './PredictionPanel.types';
 import { PaperBox } from './PredictionPanel.styles';
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 const PredictionPanelBase: FC<PredictionPanelProps> = ({
   cells,
   isLoading,
 }) => {
   const [selectedNums, setselectedNums] = useState<ICell[]>([]);
+  const [selectedCurrency, setSelectedCurrency] = useState<string>('BONK');
+  const [selectedBetAmount, setSelectedBetAmount] = useState<number>(100_000);
 
   const { connection } = useConnection();
   const { connected, publicKey, sendTransaction } = useWallet();
@@ -48,6 +47,17 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
       return cell;
     });
   }, [cells, selectedNums]);
+
+  const onCurrencyChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setSelectedCurrency((event.target as HTMLInputElement).value);
+    },
+    [],
+  );
+
+  const onAmountChange = useCallback((event: any) => {
+    setSelectedBetAmount(event.target.value);
+  }, []);
 
   const onSelect = useCallback(
     (cellID: string | null) => {
@@ -83,7 +93,7 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
     const numsArray = selectedNums.map(({ number }) => number);
     const numsSorted = numsArray.sort((a, b) => a - b);
 
-    const resultString = numsSorted.join('-'); //! result string in format - 1-2-3-4-5-6-7
+    const resultString = numsSorted.join('-');
     console.log(resultString);
 
     if (!publicKey) throw new WalletNotConnectedError();
@@ -155,6 +165,7 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
     //and here we are simple sending the TX and confirming it.
     const signature = await sendTransaction(transferTransaction, connection);
     console.log(signature);
+
     await connection.confirmTransaction(signature, 'processed');
     console.log('Entry Proccessed');
   }, [selectedNums, enqueueSnackbar, publicKey, sendTransaction, connection]);
@@ -174,7 +185,14 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
 
           <PickGrid cells={numbersList} handleSelectNumber={onSelect} />
 
-          <ResultsSubmit onSubmit={onSubmit} isDisabled={isDisabled} />
+          <ResultsSubmit
+            onSubmit={onSubmit}
+            isDisabled={isDisabled}
+            selectedBetAmount={selectedBetAmount}
+            selectedCurrency={selectedCurrency}
+            onAmountChange={onAmountChange}
+            onCurrencyChange={onCurrencyChange}
+          />
         </Stack>
       </PaperBox>
     </Grid>

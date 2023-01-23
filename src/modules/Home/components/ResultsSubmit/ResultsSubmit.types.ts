@@ -1,4 +1,10 @@
+import { ChangeEvent } from 'react';
+
 export interface ResultsSubmitProps {
-  onSubmit: () => void;
   isDisabled?: boolean;
+  selectedBetAmount: number;
+  selectedCurrency: string;
+  onSubmit: () => void;
+  onAmountChange: (event: any) => void;
+  onCurrencyChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
