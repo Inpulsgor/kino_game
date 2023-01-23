@@ -30,10 +30,17 @@ const InfoPanelBase: FC<InfoPanelProps> = ({ gameResults, refetch }) => {
   );
 
   return (
-    <Grid xs={12} sx={{ maxHeight: '130px', height: '100%' }} marginTop="auto">
+    <Grid
+      xs={12}
+      sx={{
+        maxHeight: '130px',
+        height: '100%',
+      }}
+      marginTop="auto"
+    >
       <PaperBox>
         <Stack
-          direction="row"
+          direction={{ xs: 'column', sm: 'row' }}
           divider={<Divider orientation="vertical" flexItem />}
           spacing={2}
         >

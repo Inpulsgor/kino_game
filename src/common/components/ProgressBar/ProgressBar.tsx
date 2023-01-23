@@ -12,7 +12,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ progress = 0, isLoading }) => {
       spacing={1}
       alignItems="center"
       justifyContent="space-between"
-      sx={{ minHeight: 56 }}
+      sx={{ minHeight: 122 }}
     >
       <Grid xs={10}>
         <LinearProgress

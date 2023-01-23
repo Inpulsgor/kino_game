@@ -1,11 +1,10 @@
 import { FC } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { Container, IconButton, Tooltip } from '@mui/material';
+import { Container, IconButton, Tooltip, Zoom } from '@mui/material';
 import { Help as HelpIcon } from '@mui/icons-material';
 
 import { useModal } from 'common/hooks/useModal';
 import { HowToPlayModal } from 'modules/Home/components';
-// import { ReactComponent as PhantomIcon } from 'common/assets/phantom.svg';
 import { AppHeader, NavBar, WalletButton, WalletKey } from './AppBar.styles';
 
 const AppBar: FC = () => {
@@ -19,7 +18,12 @@ const AppBar: FC = () => {
       <AppHeader position="relative">
         <Container maxWidth="xl">
           <NavBar disableGutters>
-            <Tooltip title="How to play" placement="right">
+            <Tooltip
+              disableInteractive
+              placement="right"
+              title="How to play"
+              TransitionComponent={Zoom}
+            >
               <IconButton onClick={openModal}>
                 <HelpIcon />
               </IconButton>
@@ -27,7 +31,6 @@ const AppBar: FC = () => {
 
             <WalletButton>
               {pubKey && <WalletKey>{pubKey}</WalletKey>}
-              {/* {pubKey ? <WalletKey>{pubKey}</WalletKey> : <PhantomIcon />} */}
             </WalletButton>
           </NavBar>
         </Container>

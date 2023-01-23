@@ -12,7 +12,7 @@ const MatchNumbers: FC<MatchNumbersProps> = ({
       <Grid container>
         <Typography>Selected numbers (max 7):</Typography>
 
-        <Grid container xs={12} spacing={1} sx={{ minHeight: '87px' }}>
+        <Grid container xs={12} spacing={1} sx={{ minHeight: '90px' }}>
           {selectedNumbers.map(cell => (
             <Cell
               key={cell.id}

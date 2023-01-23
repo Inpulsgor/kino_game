@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Unstable_Grid2 as Grid, Tooltip } from '@mui/material';
+import { Unstable_Grid2 as Grid, Tooltip, Zoom } from '@mui/material';
 import { CellProps } from './Cell.types';
 import { CellButton } from './Cell.styles';
 
@@ -23,8 +23,8 @@ const Cell: FC<CellProps> = ({
   };
 
   return (
-    <Grid xs={gridSize}>
-      <Tooltip title={tooltipTitle} placement="top">
+    <Grid xs={4} sm={2} lg={gridSize}>
+      <Tooltip placement="top" title={tooltipTitle} TransitionComponent={Zoom}>
         <CellButton
           color={color}
           size={size}

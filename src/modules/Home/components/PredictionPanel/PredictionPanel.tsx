@@ -3,7 +3,12 @@ import { Unstable_Grid2 as Grid, Divider, Stack, Box } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { Keypair, SystemProgram, Transaction } from '@solana/web3.js';
+import {
+  Keypair,
+  SystemProgram,
+  Transaction,
+  PublicKey,
+} from '@solana/web3.js';
 import { TOKEN_PROGRAM_ID, createTransferInstruction } from '@solana/spl-token';
 
 import { ResultsSubmit, PickGrid, MatchNumbers } from 'modules/Home/components';
@@ -76,11 +81,13 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
 
     if (!publicKey) throw new WalletNotConnectedError();
 
+    //! Transaction has to here
+
     // const transaction = new Transaction().add(
     //   createTransferInstruction(
     //     fromTokenAccount.address,
     //     toTokenAccount.address,
-    //     fromWallet.publicKey,
+    //     publicKey, // fromWallet.publicKey,
     //     1,
     //     [],
     //     TOKEN_PROGRAM_ID,
@@ -93,7 +100,7 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
   }, [selectedNums, enqueueSnackbar, publicKey, sendTransaction, connection]);
 
   return (
-    <Grid xs={4}>
+    <Grid xs={12} lg={4}>
       <PaperBox>
         <Stack
           direction="column"

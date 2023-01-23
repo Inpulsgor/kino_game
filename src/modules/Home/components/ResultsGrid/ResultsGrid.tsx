@@ -5,7 +5,7 @@ import { ResultsGridProps } from './ResultsGrid.types';
 
 const ResultsGridBase: FC<ResultsGridProps> = ({ cells = [] }) => {
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={1} sx={{ mb: 4 }}>
       {cells.length > 0 ? (
         cells.map(cell => <Cell key={cell.id} {...cell} disabled />)
       ) : (
