@@ -15,7 +15,7 @@ const AppBasement: FC<AppBasementProps> = () => {
           Developed by
         </Typography>
 
-        <DevLink href="https://metame.vercel.app" target="_blank">
+        <DevLink href="https://twitter.com/metamenft" target="_blank">
           <MetameLogo />
         </DevLink>
 
