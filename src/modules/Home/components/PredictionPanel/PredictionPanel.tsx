@@ -26,12 +26,11 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
   const [selectedNums, setselectedNums] = useState<ICell[]>([]);
   const [selectedCurrency, setSelectedCurrency] = useState<string>('BONK');
   const [selectedBetAmount, setSelectedBetAmount] = useState<number>(100_000);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const { connection } = useConnection();
-  const { connected, publicKey, sendTransaction } = useWallet();
   const { enqueueSnackbar } = useSnackbar();
-
-  const isDisabled = !connected || selectedNums.length === 0 || isLoading;
+  const { connected, publicKey, sendTransaction } = useWallet();
 
   const numbersList = useMemo(() => {
     return cells.map(cell => {
@@ -84,11 +83,19 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
   );
 
   const onSubmit = useCallback(async () => {
+    if (!connected) {
+      return enqueueSnackbar('Connect you wallet first', {
+        variant: 'warning',
+      });
+    }
+
     if (selectedNums.length === 0) {
       return enqueueSnackbar('Select numbers before submitting results', {
         variant: 'warning',
       });
     }
+
+    setIsSubmitting(true);
 
     const numsArray = selectedNums.map(({ number }) => number);
     const numsSorted = numsArray.sort((a, b) => a - b);
@@ -96,7 +103,10 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
     const resultString = numsSorted.join('-');
     console.log(resultString);
 
-    if (!publicKey) throw new WalletNotConnectedError();
+    if (!publicKey) {
+      setIsSubmitting(false);
+      throw new WalletNotConnectedError();
+    }
 
     //here things are set up to work for SOL transaction
     console.log('preparing to submit');
@@ -106,15 +116,6 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
     const toKeypair = new PublicKey(
       'kinvUZn9fQ2dGCnqY1hSMEjhdxNKTL7SHAZHtY7siFd',
     );
-
-    //Set up the transaction for SOL based
-    //const transferTransaction = new Transaction().add(
-    //  SystemProgram.transfer({
-    //    fromPubkey: publicKey,
-    //    toPubkey: toKeypair,
-    //    lamports: lamportsToSend,
-    //  }),
-    //);
 
     //Below here is implementation of SPL TOKEN TRANSFER
     //this is the BONK token hash
@@ -168,15 +169,29 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
 
     await connection.confirmTransaction(signature, 'processed');
     console.log('Entry Proccessed');
-  }, [selectedNums, enqueueSnackbar, publicKey, sendTransaction, connection]);
+
+    enqueueSnackbar('Results successfully submitted', {
+      variant: 'success',
+    });
+
+    setIsSubmitting(false);
+  }, [
+    selectedNums,
+    selectedBetAmount,
+    enqueueSnackbar,
+    publicKey,
+    sendTransaction,
+    connection,
+    connected,
+  ]);
 
   return (
     <Grid xs={12} lg={4}>
       <PaperBox>
         <Stack
+          spacing={2}
           direction="column"
           divider={<Divider orientation="horizontal" flexItem />}
-          spacing={2}
         >
           <MatchNumbers
             selectedNumbers={selectedNums}
@@ -187,7 +202,8 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
 
           <ResultsSubmit
             onSubmit={onSubmit}
-            isDisabled={false}
+            isDisabled={isLoading}
+            isSubmitting={isSubmitting}
             selectedBetAmount={selectedBetAmount}
             selectedCurrency={selectedCurrency}
             onAmountChange={onAmountChange}

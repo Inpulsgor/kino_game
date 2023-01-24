@@ -1,101 +1,58 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import {
   Unstable_Grid2 as Grid,
   Button,
-  FormControl,
-  FormControlLabel,
-  RadioGroup,
-  Radio,
-  Select,
-  InputLabel,
-  MenuItem,
+  CircularProgress,
 } from '@mui/material';
+import AmountSelect from './AmountSelect/AmountSelect';
+import CurrencySelect from './CurrencySelect/CurrencySelect';
 import { ResultsSubmitProps } from './ResultsSubmit.types';
 
-const ResultsSubmit: FC<ResultsSubmitProps> = ({
+const ResultsSubmitBase: FC<ResultsSubmitProps> = ({
   onSubmit,
   selectedCurrency,
   selectedBetAmount,
   onCurrencyChange,
   onAmountChange,
   isDisabled = false,
+  isSubmitting = false,
 }) => {
   return (
     <Grid>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} alignItems="center">
+        <CurrencySelect
+          selectedCurrency={selectedCurrency}
+          onCurrencyChange={onCurrencyChange}
+        />
+
+        <AmountSelect
+          selectedBetAmount={selectedBetAmount}
+          onAmountChange={onAmountChange}
+        />
+
         <Grid xs={12}>
-          <FormControl fullWidth>
-            <InputLabel id="amount-select-label">Amount</InputLabel>
-            <Select
-              label="Amount"
-              labelId="amount-select-label"
-              id="amount-select"
-              value={selectedBetAmount}
-              onChange={onAmountChange}
-            >
-              <MenuItem value={100_000}>100_000</MenuItem>
-              <MenuItem value={1_000_000}>1_000_000</MenuItem>
-              <MenuItem value={10_000_000}>10_000_000</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid xs={6}>
-          <FormControl>
-            <RadioGroup
-              row
-              name="currencies"
-              value={selectedCurrency}
-              onChange={onCurrencyChange}
-            >
-              <FormControlLabel
-                value="BONK"
-                control={
-                  <Radio
-                    sx={{
-                      color: '#EAB809',
-                      '&.Mui-checked': {
-                        color: '#EAB809',
-                      },
-                    }}
-                  />
-                }
-                label="BONK"
-              />
-              <FormControlLabel
-                value="SOL"
-                disabled
-                control={
-                  <Radio
-                    sx={{
-                      color: '#EAB809',
-                      '&.Mui-checked': {
-                        color: '#EAB809',
-                      },
-                    }}
-                  />
-                }
-                label="SOL"
-              />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-
-        <Grid xs={6}>
           <Button
-            sx={{ minHeight: '44px' }}
             fullWidth
+            color="success"
             variant="contained"
             onClick={onSubmit}
-            color="success"
             disabled={isDisabled}
+            sx={{
+              minHeight: '44px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+            }}
           >
             Bet {selectedBetAmount} of {selectedCurrency}
+            {isSubmitting && <CircularProgress size={16} />}
           </Button>
         </Grid>
       </Grid>
     </Grid>
   );
 };
+
+const ResultsSubmit = memo(ResultsSubmitBase);
 
 export default ResultsSubmit;

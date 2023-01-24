@@ -2,6 +2,7 @@ import { ChangeEvent } from 'react';
 
 export interface ResultsSubmitProps {
   isDisabled?: boolean;
+  isSubmitting?: boolean;
   selectedBetAmount: number;
   selectedCurrency: string;
   onSubmit: () => void;
