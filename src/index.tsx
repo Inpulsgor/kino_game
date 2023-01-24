@@ -2,7 +2,6 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider, CssBaseline } from '@mui/material';
-import { NotificationProvider } from 'common/contexts/NotificationProvider';
 
 import theme from './styles/theme';
 import App from './App';
@@ -13,12 +12,10 @@ const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <StrictMode>
     <HelmetProvider>
-      <NotificationProvider>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
-      </NotificationProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
     </HelmetProvider>
   </StrictMode>,
 );

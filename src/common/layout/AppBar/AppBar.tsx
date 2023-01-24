@@ -4,7 +4,7 @@ import { Container, IconButton, Tooltip, Zoom } from '@mui/material';
 import { Help as HelpIcon } from '@mui/icons-material';
 
 import { useModal } from 'common/hooks/useModal';
-import { HowToPlayModal } from 'modules/Home/components';
+import { HowToPlayModal } from 'modules/Kino/components';
 import { AppHeader, NavBar, WalletButton, WalletKey } from './AppBar.styles';
 
 const AppBar: FC = () => {

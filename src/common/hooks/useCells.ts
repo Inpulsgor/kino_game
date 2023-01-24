@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
-import { generateCells } from 'modules/Home/helpers/functions';
-import { ICell } from 'modules/Home/models/cell';
+import { generateCells } from 'modules/Kino/helpers/functions';
+import { ICell } from 'modules/Kino/models/cell';
 
 export const useCells = () => {
   const [cells, setCells] = useState<ICell[]>([]);

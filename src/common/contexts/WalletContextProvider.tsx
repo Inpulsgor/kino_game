@@ -1,6 +1,7 @@
 import { FC, ReactNode, useCallback, useMemo, useEffect } from 'react';
-import { clusterApiUrl } from '@solana/web3.js';
 import { WalletAdapterNetwork, WalletError } from '@solana/wallet-adapter-base';
+import { clusterApiUrl } from '@solana/web3.js';
+import { useSnackbar } from 'notistack';
 import {
   ConnectionProvider,
   WalletProvider,
@@ -13,7 +14,7 @@ import {
   TorusWalletAdapter,
 } from '@solana/wallet-adapter-wallets';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { useNotification } from 'common/contexts/NotificationProvider';
+
 import { AutoConnectProvider, useAutoConnect } from './AutoConnectProvider';
 import {
   NetworkConfigurationProvider,
@@ -22,7 +23,7 @@ import {
 
 const Wallet: FC<{ children: ReactNode }> = ({ children }) => {
   const { autoConnect } = useAutoConnect();
-  const { setAlertState } = useNotification();
+  const { enqueueSnackbar } = useSnackbar();
   const { networkConfiguration } = useNetworkConfiguration();
 
   const network = networkConfiguration as WalletAdapterNetwork.Mainnet;
@@ -43,13 +44,14 @@ const Wallet: FC<{ children: ReactNode }> = ({ children }) => {
 
   const onError = useCallback(
     (error: WalletError) => {
-      setAlertState({
-        open: true,
-        message: error.message ? `${error.name}: ${error.message}` : error.name,
-        severity: 'error',
-      });
+      enqueueSnackbar(
+        error.message ? `${error.name}: ${error.message}` : error.name,
+        {
+          variant: 'error',
+        },
+      );
     },
-    [setAlertState],
+    [enqueueSnackbar],
   );
 
   return (
