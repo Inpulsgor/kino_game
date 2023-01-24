@@ -138,7 +138,7 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
     //1_000_00 = 1 BONK
     const scale = 1_000_00;
     //number hardcoded, to become user input
-    const betAmount = 1_000_000 * scale;
+    const betAmount = selectedBetAmount * scale;
     //pass in the betAmount as the amount to be transferred.
 
     //using info above use to send a TX with spl-token
@@ -187,7 +187,7 @@ const PredictionPanelBase: FC<PredictionPanelProps> = ({
 
           <ResultsSubmit
             onSubmit={onSubmit}
-            isDisabled={isDisabled}
+            isDisabled={false}
             selectedBetAmount={selectedBetAmount}
             selectedCurrency={selectedCurrency}
             onAmountChange={onAmountChange}

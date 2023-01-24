@@ -90,7 +90,7 @@ const ResultsSubmit: FC<ResultsSubmitProps> = ({
             color="success"
             disabled={isDisabled}
           >
-            Bet 1MM {selectedCurrency}
+            Bet {selectedBetAmount} of {selectedCurrency}
           </Button>
         </Grid>
       </Grid>
